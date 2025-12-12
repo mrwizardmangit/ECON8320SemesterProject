@@ -1,0 +1,37 @@
+name: Update Labor Data
+
+on:
+  schedule:
+    # Runs at 8 every day
+    - cron: '0 8 * * *'
+  workflow_dispatch: # For manual running
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run Data Collection Script
+      env:
+        BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+      run: python data_collection.py
+
+    - name: Commit and Push if changes
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+        git add labor_market_data.csv
+        git commit -m "Auto-update labor market data" || exit 0
+        git push
