@@ -8,7 +8,7 @@ st.set_page_config(
     layout="wide"
 )
 
-@st.cache_data
+@st.cache_data(ttl="2h")
 def load_data():
     df = pd.read_csv('labor_market_data.csv')
     df['date'] = pd.to_datetime(df['date'])
