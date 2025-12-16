@@ -76,8 +76,6 @@ def fetch_data():
     return df_pivot
 
 def process_data(df):
-    df = df.sort_values('date')
-    df = df.ffill()
     # Real wages: nominal wage / CPI * 100
     if 'Avg Hourly Earnings' in df.columns and 'CPI' in df.columns:
         df['Real Wages'] = (df['Avg Hourly Earnings'] / df['CPI']) * 100
