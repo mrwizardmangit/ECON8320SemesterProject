@@ -52,6 +52,11 @@ def fetch_data():
         col_name = SERIES_NAMES.get(series_id, series_id)
 
         for item in series['data']:
+            try:
+                value = float(item['value'])
+            except ValueError:
+                print(f"Skipping missing data for {col_name} period {item['period']}")
+                continue
             year = item['year']
             period = item['period']
             month = int(period.replace("M", ""))
