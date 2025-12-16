@@ -5,7 +5,8 @@ on:
     # Runs at 8 every day
     - cron: '0 8 * * *'
   workflow_dispatch: # For manual running
-
+permissions:
+  contents: write
 jobs:
   update-data:
     runs-on: ubuntu-latest
