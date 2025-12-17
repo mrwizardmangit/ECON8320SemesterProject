@@ -64,7 +64,7 @@ def fetch_data():
             records.append({
                 "date": date_str,
                 "variable": col_name,
-                "value": float(item['value'])
+                "value": value
             })
     df = pd.DataFrame(records)
     # Make variables columns
